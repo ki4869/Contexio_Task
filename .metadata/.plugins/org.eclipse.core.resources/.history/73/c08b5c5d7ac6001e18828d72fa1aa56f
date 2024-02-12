@@ -1,0 +1,91 @@
+package writeexcel;
+
+import java.io.FileOutputStream;
+import java.util.Date;
+import java.util.Scanner;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class writeexcel {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		XSSFWorkbook workbook = new XSSFWorkbook();
+
+		// Create a Sheet
+		Sheet sheet = workbook.createSheet("Sheet1");
+
+		Scanner sc = new Scanner(System.in);
+		
+		Row headerRow = sheet.createRow(0);  //heading for excel file
+        headerRow.createCell(0).setCellValue("empid");
+        headerRow.createCell(1).setCellValue("empname");
+        headerRow.createCell(2).setCellValue("empphoneno");
+        headerRow.createCell(3).setCellValue("empDOB");
+        headerRow.createCell(4).setCellValue("empEmail");
+
+
+		System.out.println("Enter data for Excel file");
+		int rowCount = 1;
+		while (true) {
+			System.out.print("Enter EmployeeID: ");
+			String empId = sc.next();
+
+			System.out.print("Enter EmployeeName: ");
+			String empName = sc.next();
+
+			System.out.print("Enter Employee PhoneNumber: ");
+			String empPhone = sc.next();
+			
+
+	        System.out.print("Enter Employee Date of Birth: ");
+	         String empDOB = sc.next();
+	        
+
+	         System.out.print("Enter Employee Email: ");
+	         String empEmail = sc.next();
+
+			Row row = sheet.createRow(rowCount++);
+			row.createCell(0).setCellValue(empId);
+			row.createCell(1).setCellValue(empName);
+			row.createCell(2).setCellValue(empPhone);
+			row.createCell(3).setCellValue(empDOB);
+            row.createCell(4).setCellValue(empEmail);
+			
+			
+			
+
+		try{
+			System.out.println("Enter file name for output");
+			String outputpath=sc.next();
+			//FileOutputStream outputStream = new FileOutputStream("D:\\exceldata\\output.xlsx"); 
+			FileOutputStream outputStream = new FileOutputStream("D:\\exceldata\\outputpath.xlsx");
+			workbook.write(outputStream);
+			System.out.println("Data written successfully");
+
+			System.out.print("Do you want to add more data? (Y/N): ");
+            String choice = sc.next();
+            if (!choice.equalsIgnoreCase("Y")) {
+                break;
+            }
+			
+			
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			//sc.close();
+		}
+
+		try {
+			// workbook.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}}

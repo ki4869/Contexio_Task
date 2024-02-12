@@ -1,0 +1,82 @@
+package crawl;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class amazoncrawl {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver","D:\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		//excel
+		
+       
+        
+        
+       
+		
+		
+		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("D:\\crawldata\\flipkartinput.txt"));
+            String url = reader.readLine();
+            reader.close();
+			driver.get(url);
+			
+		WebElement element=	driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[2]/div/div[1]/h1/span"));
+			String title = element.getText();
+			System.out.println("Product Title"+title);  //product title
+			
+			WebElement priceelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[2]/div/div[4]/div[1]/div/div[1]"));
+			String price = priceelement.getText();
+			System.out.println("Product price "+price);  //product price
+			
+			WebElement colorelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[9]/div[5]/div/div[2]/div[1]/div[1]/table/tbody/tr[2]/td[2]/ul/li"));
+			String color = colorelement.getText();
+			System.out.println("Product price "+price);  //product color
+			
+			WebElement modelelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[9]/div[5]/div/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]/ul/li"));
+			String model = modelelement.getText();
+			System.out.println("Product price "+price);  //product model
+			
+			
+			
+			
+			//write output to text file
+			
+			 FileWriter writer = new FileWriter("D:\\crawldata\\flipkartoutput.txt");
+	            writer.write("Product Title: " + title + "\n");
+	            writer.write("Product Price: " + price + "\n");
+	            writer.write("Product Color: " + color + "\n");
+	            writer.write("Model Name: " + model + "\n");
+	            writer.close();
+	            System.out.println("Successfully created file");
+	            
+	            
+	            
+	            
+	            
+		
+			
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+
+}
+		
+
+	}
+
+

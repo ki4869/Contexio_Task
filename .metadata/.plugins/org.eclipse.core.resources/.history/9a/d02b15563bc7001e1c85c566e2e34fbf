@@ -1,0 +1,111 @@
+package crawl;
+
+import java.io.BufferedReader;
+//import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+//import org.apache.poi.ss.usermodel.Row;
+//import org.apache.poi.ss.usermodel.Sheet;
+//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class flipkartcrawl {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","D:\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		//excel
+		
+       
+        
+        
+       
+		
+		
+		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("D:\\crawldata\\flipkartinput.txt"));
+            String url = reader.readLine();
+            reader.close();
+			driver.get(url);
+			
+		WebElement element=	driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[2]/div/div[1]/h1/span"));
+			String title = element.getText();
+			System.out.println("Product Title"+title);  //product title
+			
+			WebElement priceelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[2]/div/div[4]/div[1]/div/div[1]"));
+			String price = priceelement.getText();
+			System.out.println("Product price "+price);  //product price
+			
+//			WebElement colorelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[8]/div[5]/div/div[2]/div[1]/div[1]/table/tbody/tr[2]/td[2]/ul/li"));
+//			String color = colorelement.getText();
+//			System.out.println("Product price "+color);  //product color
+//			
+//			WebElement modelelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[9]/div[5]/div/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]/ul/li"));
+//			String model = modelelement.getText();
+//			System.out.println("Product price "+model);  //product model
+			
+			
+			
+			
+			//write output to text file
+			
+			 FileWriter writer = new FileWriter("D:\\crawldata\\flipkartoutput.txt");
+	            writer.write("Product Title: " + title + "\n");
+	            writer.write("Product Price: " + price + "\n");
+	           // writer.write("Product Color: " + color + "\n");
+	           // writer.write("Model Name: " + model + "\n");
+	            writer.close();
+	            System.out.println("Successfully created file");
+	            
+	            //write data to excel file
+	            
+//	            XSSFWorkbook workbook = new XSSFWorkbook();
+//
+//	    		// Create a Sheet
+//	    		Sheet sheet = workbook.createSheet("Flipkartdata");
+//	    		Row headerRow = sheet.createRow(0);  //heading for excel file
+//	            headerRow.createCell(0).setCellValue("Pname");
+//	            headerRow.createCell(1).setCellValue("pprice");
+//	            headerRow.createCell(2).setCellValue("pcolor");
+//	            headerRow.createCell(3).setCellValue("pmodel");
+//	            Row row = sheet.createRow(1);
+//	            row.createCell(0).setCellValue(title);
+//	            row.createCell(1).setCellValue(price);
+//	            row.createCell(2).setCellValue(color);
+//	            row.createCell(3).setCellValue(model);
+//	            
+//	            FileOutputStream outputStream = new FileOutputStream("D:\\crawldata\\flipkartoutput.xlsx");
+//	            workbook.write(outputStream);
+//	            workbook.close();
+//	            System.out.println("Successfully created Excel file");
+//	            
+//
+//	            
+//
+//	            // Write Excel data to file
+//	            FileOutputStream output = new FileOutputStream("D:\\crawldata\\flipkartoutput.xlsx");
+//	            workbook.write(output);
+//	            workbook.close();
+//	            System.out.println("Successfully created Excel file");
+	            
+	            
+	            
+			
+			
+			
+			
+			
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+
+}
+}

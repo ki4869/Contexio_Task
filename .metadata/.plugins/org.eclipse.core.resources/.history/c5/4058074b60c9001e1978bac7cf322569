@@ -1,0 +1,123 @@
+package crawl;
+
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+//import org.apache.poi.ss.usermodel.Row;
+//import org.apache.poi.ss.usermodel.Sheet;
+//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class flipkartcrawl {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","D:\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("D:\\crawldata\\flipkartinput.txt"));
+            String url = reader.readLine();
+            reader.close();
+			driver.get(url);
+			
+		WebElement element=	driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[2]/div/div[1]/h1/span"));
+			String title = element.getText();
+			System.out.println("Product Title"+title);  //product title
+			
+			WebElement priceelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[2]/div/div[4]/div[1]/div/div[1]"));
+			String price = priceelement.getText();
+			System.out.println("Product price "+price);  //product price
+			
+			WebElement colorelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[9]/div[5]/div/div[2]/div[1]/div[1]/table/tbody/tr[2]/td[2]/ul/li"));
+			String color = colorelement.getText();
+			System.out.println("Product Color "+color);  //product color
+//			
+			WebElement modelelement=driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div[1]/div[2]/div[9]/div[5]/div/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]/ul/li"));
+			String model = modelelement.getText();
+			System.out.println("Product model "+model);  //product model
+			
+			
+			try {
+				XSSFWorkbook workbook = new XSSFWorkbook(); 
+                XSSFSheet sheet = workbook.createSheet("Product Details");
+                Row headerRow = sheet.createRow(0);
+                headerRow.createCell(0).setCellValue("Product Title");
+                headerRow.createCell(1).setCellValue("Product Price");
+                headerRow.createCell(2).setCellValue("Product Color");
+                headerRow.createCell(3).setCellValue("Product Model");
+
+                Row dataRow = sheet.createRow(1);
+                dataRow.createCell(0).setCellValue(title);
+                dataRow.createCell(1).setCellValue(price);
+                dataRow.createCell(2).setCellValue(color);
+                dataRow.createCell(3).setCellValue(model);
+                
+                FileOutputStream outputStream = new FileOutputStream("D:\\exceldata\\output.xlsx");
+    			workbook.write(outputStream);
+    			System.out.println("Data written successfully");
+
+                // Write the workbook to a file
+//                try (FileWriter writer = new FileWriter("D:\\crawldata\\flipkartoutput.xlsx")) {
+//                    workbook.write(writer);
+//                    System.out.println("Successfully created Excel file");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            // Quit the WebDriver
+//            driver.quit();
+//        }
+			
+			
+			
+//			
+//			 try (FileWriter writer = new FileWriter("D:\\crawldata\\flipkartoutput.txt")) {
+//				 writer.write("Product Title\tProduct Price\tProduct Color\tProduct Model\n");
+//				 writer.write(title + "\t" + price + "\t" + color + "\t" + model);
+//	                System.out.println("Successfully created file");
+//	            } catch (IOException e) {
+//	                e.printStackTrace();   //tab spaced 
+//	            }
+			 
+			 
+			
+			 
+			 
+			 
+			 
+			
+			
+			
+			
+	            
+	            
+	            
+	            		
+			
+//		}
+//		catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+
+}}
+		}
+	}
+
